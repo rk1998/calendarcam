@@ -5,4 +5,11 @@ package com.calendar.cam.calendarcam.Model;
  */
 
 public class PatternSearch {
+    private CharSequence searchString;
+
+    public PatternSearch(String search) {
+        searchString = search;
+    }
+
+
 }
