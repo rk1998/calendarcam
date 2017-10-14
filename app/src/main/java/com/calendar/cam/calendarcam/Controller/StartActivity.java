@@ -7,13 +7,14 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.calendar.cam.calendarcam.Model.OcrDetectorProcessor;
 import com.calendar.cam.calendarcam.R;
 import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
 public class StartActivity extends AppCompatActivity {
@@ -52,13 +53,18 @@ public class StartActivity extends AppCompatActivity {
             Bitmap photo = (Bitmap) extras.get("data");
             Context context = getApplicationContext();
             TextRecognizer textRecognizer = new TextRecognizer.Builder(context).build();
-            OcrDetectorProcessor processor = new OcrDetectorProcessor();
-            textRecognizer.setProcessor(processor);
+
             Frame frame = new Frame.Builder().setBitmap(photo).build();
-            textRecognizer.receiveFrame(frame);
+            SparseArray<TextBlock> items = textRecognizer.detect(frame);
 
             TextView text2 = (TextView) findViewById(R.id.text2);
-            text2.append(processor.getText());
+            for (int i = 0; i < items.size(); ++i) {
+                TextBlock item = items.valueAt(i);
+                if (item != null && item.getValue() != null) {
+                    Log.i("OcrDetectorProcessor", "Text detected! " + item.getValue());
+                }
+                text2.append(item.getValue());
+            }
         }
     }
 
