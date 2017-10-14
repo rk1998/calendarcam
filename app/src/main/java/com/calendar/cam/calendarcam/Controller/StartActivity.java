@@ -1,5 +1,6 @@
 package com.calendar.cam.calendarcam.Controller;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.calendar.cam.calendarcam.R;
+import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.text.TextRecognizer;
 
 public class StartActivity extends AppCompatActivity {
     private Button mTakePicButton;
@@ -45,6 +48,9 @@ public class StartActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap photo = (Bitmap) extras.get("data");
+            Context context = getApplicationContext();
+            TextRecognizer textRecognizer = new TextRecognizer.Builder(context).build();
+            Frame frame = new Frame.Builder().build();
         }
     }
 
