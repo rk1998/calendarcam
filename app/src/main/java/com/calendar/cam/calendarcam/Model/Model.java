@@ -50,6 +50,7 @@ public class Model {
     }
     /**Singleton Instance**/
     private static final Model _instance = new Model();
+    private static final int BASE = 599;
     /**
      * Gets singleton instance of model
      * @return The singleton instance of model
@@ -74,11 +75,106 @@ public class Model {
             TextBlock text = camTextArray.valueAt(i);
             int bboxArea = text.getBoundingBox().height() * text.getBoundingBox().width();
             if(bboxArea > maxArea) {
+                maxArea = bboxArea;
+                index = i;
+            }
+        }
+        eventName = camTextArray.valueAt(index).getValue();
+        String month = "";
+        for(int i = 0; i < camTextArray.size(); i++) {
+            TextBlock text = camTextArray.valueAt(i);
+            String textValue = text.getValue();
+            Month[] months = Month.values();
+            for(Month m: months) {
 
             }
+
         }
 
         return new CalendarInteraction("Bingus", "Boingus", "Dingus");
+
+    }
+
+    /**
+     * Runs Rabin-Karp algorithm. Generate the pattern hash, and compare it with
+     * the hash from a substring of text that's the same length as the pattern.
+     * If the two hashes match, compare their individual characters, else update
+     * the text hash and continue.
+     *
+     * @throws IllegalArgumentException if the pattern is null or of length 0
+     * @throws IllegalArgumentException if text is null
+     * @param pattern a string you're searching for in a body of text
+     * @param text the body of text where you search for pattern
+     * @return list containing the starting index for each match found
+     */
+    private  String rabinKarp(CharSequence pattern,
+                                          CharSequence text) {
+        String result = "";
+        if (pattern == null || pattern.length() == 0) {
+            throw new IllegalArgumentException("Cannot use null pattern "
+                    + "or zero length pattern");
+        }
+        if (text == null) {
+            throw new IllegalArgumentException("Cannot use null text");
+        }
+        if (pattern.length() > text.length()) {
+            return result;
+        }
+
+        List<Integer> matches = new LinkedList<>();
+        int textHash = generateHash(text, pattern.length());
+        int patternHash = generateHash(pattern, pattern.length());
+        int i = 0;
+        while (i <= text.length() - pattern.length()) {
+            if (patternHash == textHash) {
+                int j = 0;
+                while (j < pattern.length()
+                        && text.charAt(i + j) == pattern.charAt(j)) {
+                    j++;
+
+                }
+                if (j == pattern.length()) {
+                    result += text.charAt(i);
+                    matches.add(i);
+                }
+
+            }
+            i++;
+            if (i <= text.length() - pattern.length()) {
+                char oldChar = text.charAt(i - 1);
+                char newChar = text.charAt(i + pattern.length() - 1);
+                textHash = updateHash(textHash, pattern.length(),
+                        oldChar, newChar);
+            }
+        }
+        return result;
+
+    }
+    private int generateHash(CharSequence current, int length) {
+        if (current == null) {
+            throw new IllegalArgumentException("Cannot generate hash "
+                    + "of null CharSequence");
+        }
+        if (length <= 0 || length > current.length()) {
+            throw new IllegalArgumentException("Cannot use negative length or "
+                    + "length that is greater than current.length()");
+        }
+        int hash = 0;
+        for (int i = 0; i < length; i++) {
+            hash += current.charAt(i) * Math.pow(BASE, length - 1 - i);
+        }
+        return hash;
+
+    }
+
+    private int updateHash(int oldHash, int length, char oldChar,
+                                 char newChar) {
+        if (length <= 0) {
+            throw new IllegalArgumentException("Cannot use a negative or "
+                    + "zero length");
+        }
+        return BASE * (oldHash - oldChar * (int) Math.pow(BASE, length - 1))
+                + newChar;
 
     }
 
