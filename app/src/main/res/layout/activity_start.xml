@@ -6,4 +6,34 @@
     android:layout_height="match_parent"
     tools:context="com.calendar.cam.calendarcam.Controller.StartActivity">
 
+    <Button
+        android:id="@+id/take_pic_button"
+        style="@android:style/Widget.DeviceDefault.Light.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Take Picture"
+        app:layout_constraintHorizontal_bias="0.032"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteY="265dp" />
+
+    <Button
+        android:id="@+id/import_pic_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="26dp"
+        android:text="Import Picture"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteY="265dp" />
+
+    <TextView
+        android:id="@+id/title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CalendarCam"
+        android:textSize="40sp"
+        tools:layout_editor_absoluteX="71dp"
+        tools:layout_editor_absoluteY="68dp" />
 </android.support.constraint.ConstraintLayout>
