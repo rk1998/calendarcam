@@ -58,7 +58,7 @@ public class StartActivity extends AppCompatActivity {
         String path = pictureDirectory.getPath();
         Uri data = Uri.parse(path);
         importIntent.setDataAndType(data, "image/*");
-        startActivityForResult(importIntent, );
+        startActivityForResult(importIntent, REQUEST_IMAGE_IMPORT);
     }
 
     private void launchCameraIntent() {
