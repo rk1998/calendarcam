@@ -5,4 +5,5 @@ package com.calendar.cam.calendarcam.Model;
  */
 
 public class PatternSearch {
+    private String searchString;
 }
