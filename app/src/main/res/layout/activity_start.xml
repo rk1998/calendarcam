@@ -4,34 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.calendar.cam.calendarcam.Controller.StartActivity">
+    tools:context="com.calendar.cam.calendarcam.Controller.StartActivity"
+    android:background=>
+
 
     <Button
         android:id="@+id/take_pic_button"
         style="@android:style/Widget.DeviceDefault.Light.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:text="Take Picture"
-        app:layout_constraintHorizontal_bias="0.092"
+        app:layout_constraintHorizontal_bias="0.126"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="265dp" />
+        android:layout_marginTop="205dp"
+        android:background="@drawable/camicon"/>
 
     <Button
         android:id="@+id/import_pic_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginRight="31dp"
-        android:text="Import Picture"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="265dp"
+        android:layout_marginTop="205dp"
         app:layout_constraintLeft_toRightOf="@+id/take_pic_button"
         android:layout_marginLeft="8dp"
-        app:layout_constraintHorizontal_bias="1.0" />
+        app:layout_constraintHorizontal_bias="0.805"
+        android:background="@drawable/uploadicon" />
 
     <TextView
         android:id="@+id/title_text"
