@@ -1,7 +1,7 @@
 package com.calendar.cam.calendarcam.Model;
 
 /**
- * Created by David Goldfarb 
+ * Class representing a calendar event
  */
 
 public class CalendarInteraction {

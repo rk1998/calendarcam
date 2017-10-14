@@ -5,6 +5,7 @@ import android.util.SparseArray;
 import com.google.android.gms.vision.text.TextBlock;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -55,13 +56,29 @@ public class Model {
      */
     public static Model get_instance() {return _instance;}
 
-    SparseArray<TextBlock>  camTextBlock;
     List<String> months;
 
     private Model() {
-        camTextBlock = new SparseArray<>();
         months = new ArrayList<>();
 
+
+    }
+    public CalendarInteraction process_text_boxes(SparseArray<TextBlock> camTextArray) {
+        String eventName = "";
+        String date = "";
+        String time = "";
+        List<TextBlock> camTextList = new LinkedList<>();
+        int maxArea = Integer.MIN_VALUE;
+        int index = 0;
+        for(int i = 0; i < camTextArray.size(); i++) {
+            TextBlock text = camTextArray.valueAt(i);
+            int bboxArea = text.getBoundingBox().height() * text.getBoundingBox().width();
+            if(bboxArea > maxArea) {
+
+            }
+        }
+
+        return new CalendarInteraction("Bingus", "Boingus", "Dingus");
 
     }
 
