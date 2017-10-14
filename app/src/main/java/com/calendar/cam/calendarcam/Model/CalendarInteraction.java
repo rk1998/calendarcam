@@ -1,7 +1,7 @@
 package com.calendar.cam.calendarcam.Model;
 
 /**
- * Created by David Goldfarb 
+ * Class representing a calendar event
  */
 
 public class CalendarInteraction {
@@ -16,6 +16,9 @@ public class CalendarInteraction {
         this.eventDate = eventDate;
         this.eventName = eventName;
         this.eventTime = eventTime;
+    }
+    public CalendarInteraction(String eventName, String eventDate) {
+        this(eventName, eventDate, " ");
     }
     public String toQuickAdd() {
         return this.eventName + " on " + this.eventDate + " at " + this.eventTime;
