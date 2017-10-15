@@ -26,7 +26,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="252dp"
-        app:layout_constraintVertical_bias="0.549"
+        app:layout_constraintVertical_bias="1.0"
         app:layout_constraintBottom_toTopOf="@+id/import_pic_button"
          />
 
@@ -44,7 +44,7 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="35dp" />
+        android:layout_marginBottom="65dp" />
 
     <TextView
         android:id="@+id/title_text"
@@ -53,7 +53,7 @@
         android:text="CalendarCam"
         android:textSize="40sp"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="115dp"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
