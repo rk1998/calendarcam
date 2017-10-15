@@ -8,16 +8,17 @@ import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.CalendarContract;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.calendar.cam.calendarcam.Model.CalendarInteraction;
+import com.calendar.cam.calendarcam.Model.Model;
 import com.calendar.cam.calendarcam.R;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
@@ -87,7 +88,6 @@ public class StartActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_IMPORT && resultCode == RESULT_OK) {
             Uri uri = data.getData();
 
-
             try {
                 InputStream stream = getContentResolver().openInputStream(uri);
                 photo = BitmapFactory.decodeStream(stream);
@@ -109,14 +109,21 @@ public class StartActivity extends AppCompatActivity {
         Frame frame = new Frame.Builder().setBitmap(image).build();
         SparseArray<TextBlock> items = textRecognizer.detect(frame);
 
-        TextView text2 = (TextView) findViewById(R.id.text2);
-        for (int i = 0; i < items.size(); ++i) {
-            TextBlock item = items.valueAt(i);
-            if (item != null && item.getValue() != null) {
-                Log.i("OcrDetectorProcessor", "Text detected! " + item.getValue());
-            }
-            text2.append(item.getValue());
+        Model model = Model.get_instance();
+
+        try {
+            CalendarInteraction calendarEvent = model.process_text_boxes(items);
+
+            Intent calendarIntent = new Intent(Intent.ACTION_INSERT)
+                    .setData(CalendarContract.Events.CONTENT_URI)
+                    .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, calendarEvent.getStartTime().getTimeInMillis() )
+                    .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, calendarEvent.getEndTime().getTimeInMillis())
+                    .putExtra(CalendarContract.Events.TITLE, calendarEvent.getEventName());
+            startActivity(calendarIntent);
+        } catch (IllegalArgumentException iae) {
+            Toast.makeText(this, iae.getMessage(), Toast.LENGTH_LONG).show();
         }
+
     }
 
 }
