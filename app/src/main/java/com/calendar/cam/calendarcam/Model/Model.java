@@ -16,18 +16,18 @@ import java.util.List;
 
 public class Model {
     public enum Month {
-        JANUARY("Jan", "January", 1),
-        FEBRUARY("Feb", "February", 2),
-        MARCH("Mar", "March", 3),
-        APRIL("Apr", "April", 4),
-        MAY("May", "May", 5),
-        JUNE("Jun", "June", 6),
-        JULY("JUL", "July", 7),
-        AUGUST("Aug", "August", 8),
-        SEPTEMBER("Sept", "September", 9),
-        OCTOBER("Oct", "October", 10),
-        NOVEMBER("Nov", "November", 11),
-        DECEMBER("Dec", "December", 12);
+        JANUARY("jan", "january", 1),
+        FEBRUARY("feb", "february", 2),
+        MARCH("mar", "march", 3),
+        APRIL("apr", "april", 4),
+        MAY("may", "may", 5),
+        JUNE("jun", "june", 6),
+        JULY("jul", "july", 7),
+        AUGUST("aug", "august", 8),
+        SEPTEMBER("sept", "september", 9),
+        OCTOBER("oct" , "october", 10),
+        NOVEMBER("nov", "november", 11),
+        DECEMBER("dec", "december", 12);
 
 
         private final String _abbreviation;
@@ -91,9 +91,9 @@ public class Model {
             String textValue = text.getValue();
             Month[] months = Month.values();
             for(Month m: months) {
-                List<Integer> result = rabinKarp(m.get_longForm(), textValue);
+                List<Integer> result = rabinKarp(m.get_longForm(), textValue.toLowerCase());
                 Log.d("Textbox Value", textValue);
-                List<Integer> abbrvResult = rabinKarp(m.get_abbreviation(), textValue);
+                List<Integer> abbrvResult = rabinKarp(m.get_abbreviation(), textValue.toLowerCase());
                 if(result.size() != 0) {
                     month = m.get_monthNum();
                     String dayString = "";
@@ -123,10 +123,12 @@ public class Model {
             }
 
         }
-
-        
-
-        return new CalendarInteraction(eventName, 2017, month, day, "5PM", "7PM");
+        Log.d("Day", ""+day);
+        Log.d("Month", ""+month);
+        CalendarInteraction calendar = new CalendarInteraction(eventName, 2017, month, day, "5PM", "7PM");
+        Log.d("Month after", ""+calendar.getStartMonth());
+        Log.d("YEAR", ""+calendar.getStartYear());
+        return calendar;
 
     }
 

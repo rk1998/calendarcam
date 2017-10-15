@@ -2,6 +2,7 @@ package com.calendar.cam.calendarcam.Model;
 
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Class representing a calendar event
@@ -9,8 +10,8 @@ import java.util.Calendar;
 
 public class CalendarInteraction {
     private String eventName;
-    private Calendar startTime = Calendar.getInstance();
-    private Calendar endTime = Calendar.getInstance();
+    private Calendar startTime = new GregorianCalendar();
+    private Calendar endTime = new GregorianCalendar();
 /** Creates a CalendarInteraction with parameters
  *  @param eventName the eventName
  *  @param eventYear the eventDate
