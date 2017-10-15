@@ -8,13 +8,13 @@ import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.CalendarContract;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.calendar.cam.calendarcam.Model.CalendarInteraction;
@@ -113,14 +113,12 @@ public class StartActivity extends AppCompatActivity {
         Model model = Model.get_instance();
         CalendarInteraction calendarEvent = model.process_text_boxes(items);
 
-        TextView text2 = (TextView) findViewById(R.id.text2);
-        for (int i = 0; i < items.size(); ++i) {
-            TextBlock item = items.valueAt(i);
-            if (item != null && item.getValue() != null) {
-                Log.i("OcrDetectorProcessor", "Text detected! " + item.getValue());
-            }
-            text2.append(item.getValue());
-        }
+        Intent calendarIntent = new Intent(Intent.ACTION_INSERT)
+                .setData(CalendarContract.Events.CONTENT_URI)
+                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, calendarEvent.getStartTime().getTimeInMillis() )
+                .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, calendarEvent.getEndTime().getTimeInMillis())
+                .putExtra(CalendarContract.Events.TITLE, calendarEvent.getEventName());
+        startActivity(calendarIntent);
     }
 
 }
