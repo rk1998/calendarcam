@@ -39,7 +39,9 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
 
         mTakePicButton = (Button) findViewById(R.id.take_pic_button);
+        /*mTakePicButton.setElevation(6);*/
         mImportPicButton = (Button) findViewById(R.id.import_pic_button);
+        /*mImportPicButton.setElevation(6);*/
 
         mTakePicButton.setOnClickListener(new View.OnClickListener() {
             @Override
