@@ -121,15 +121,9 @@ public class StartActivity extends AppCompatActivity {
                 .putExtra(CalendarContract.Events.TITLE, calendarEvent.getEventName());
         startActivity(calendarIntent);
 
+        Log.d("Month: " , ""+calendarEvent.getStartMonth() );
+        Log.d("Day:", "" + calendarEvent.getStartDay());
 
-        TextView text2 = (TextView) findViewById(R.id.text2);
-        for (int i = 0; i < items.size(); ++i) {
-            TextBlock item = items.valueAt(i);
-            if (item != null && item.getValue() != null) {
-                Log.i("OcrDetectorProcessor", "Text detected! " + item.getValue());
-            }
-            text2.append(item.getValue());
-        }
     }
 
 }
