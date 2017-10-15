@@ -68,6 +68,8 @@ public class Model {
         String eventName = "";
         String date = "";
         String time = "";
+        int month = 0;
+        int day = 0;
         List<TextBlock> camTextList = new LinkedList<>();
         int maxArea = Integer.MIN_VALUE;
         int index = 0;
@@ -80,16 +82,44 @@ public class Model {
             }
         }
         eventName = camTextArray.valueAt(index).getValue();
-        String month = "";
         for(int i = 0; i < camTextArray.size(); i++) {
             TextBlock text = camTextArray.valueAt(i);
             String textValue = text.getValue();
             Month[] months = Month.values();
             for(Month m: months) {
+                List<Integer> result = rabinKarp(m.get_longForm(), textValue);
+                List<Integer> abbrvResult = rabinKarp(m.get_abbreviation(), textValue);
+                if(result.size() != 0) {
+                    month = m.get_monthNum();
+                    String dayString = "";
+                    int k = result.get(0) - 3;
+                    int temp = result.get(0) - 1;
+                    String tempDay = "";
+                    while(k < temp) {
+                        dayString += textValue.charAt(k);
+                        k++;
+                    }
+                    day = Integer.parseInt(dayString);
+
+                } else if(abbrvResult.size() != 0) {
+                    month = m.get_monthNum();
+                    month = m.get_monthNum();
+                    String dayString = "";
+                    int k = abbrvResult.get(0) - 3;
+                    int temp = abbrvResult.get(0) - 1;
+                    String tempDay = "";
+                    while(k < temp) {
+                        dayString += textValue.charAt(k);
+                        k++;
+                    }
+                    day = Integer.parseInt(dayString);
+                }
 
             }
 
         }
+
+        
 
         return new CalendarInteraction("Bingus", "Boingus", "Dingus");
 
@@ -107,9 +137,10 @@ public class Model {
      * @param text the body of text where you search for pattern
      * @return list containing the starting index for each match found
      */
-    private  String rabinKarp(CharSequence pattern,
+    private  List<Integer> rabinKarp(CharSequence pattern,
                                           CharSequence text) {
-        String result = "";
+
+        List<Integer> matches = new LinkedList<>();
         if (pattern == null || pattern.length() == 0) {
             throw new IllegalArgumentException("Cannot use null pattern "
                     + "or zero length pattern");
@@ -118,10 +149,9 @@ public class Model {
             throw new IllegalArgumentException("Cannot use null text");
         }
         if (pattern.length() > text.length()) {
-            return result;
+            return  matches;
         }
 
-        List<Integer> matches = new LinkedList<>();
         int textHash = generateHash(text, pattern.length());
         int patternHash = generateHash(pattern, pattern.length());
         int i = 0;
@@ -134,7 +164,6 @@ public class Model {
 
                 }
                 if (j == pattern.length()) {
-                    result += text.charAt(i);
                     matches.add(i);
                 }
 
@@ -147,7 +176,7 @@ public class Model {
                         oldChar, newChar);
             }
         }
-        return result;
+        return matches;
 
     }
     private int generateHash(CharSequence current, int length) {
