@@ -13,11 +13,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.calendar.cam.calendarcam.Model.CalendarInteraction;
+import com.calendar.cam.calendarcam.Model.Model;
 import com.calendar.cam.calendarcam.R;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
@@ -88,7 +89,6 @@ public class StartActivity extends AppCompatActivity {
         if (requestCode == REQUEST_IMAGE_IMPORT && resultCode == RESULT_OK) {
             Uri uri = data.getData();
 
-
             try {
                 InputStream stream = getContentResolver().openInputStream(uri);
                 photo = BitmapFactory.decodeStream(stream);
@@ -109,6 +109,9 @@ public class StartActivity extends AppCompatActivity {
 
         Frame frame = new Frame.Builder().setBitmap(image).build();
         SparseArray<TextBlock> items = textRecognizer.detect(frame);
+
+        Model model = Model.get_instance();
+        CalendarInteraction calendarEvent = model.process_text_boxes(items);
 
         TextView text2 = (TextView) findViewById(R.id.text2);
         for (int i = 0; i < items.size(); ++i) {
