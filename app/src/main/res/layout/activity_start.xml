@@ -15,7 +15,7 @@
     -->
 
     <!--These are the lines that make the box around the camera-->
-
+<!--
     <View
         android:layout_width="352dp"
         android:layout_height="1dp"
@@ -48,9 +48,8 @@
 
     <View
         android:layout_width="1dp"
-        android:layout_height="155dp"
+        android:layout_height="158dp"
         android:background="@android:color/black"
-        app:layout_constraintRight_toLeftOf="@+id/take_pic_button"
         android:layout_marginRight="8dp"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -58,8 +57,9 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
-        app:layout_constraintHorizontal_bias="0.064"
-        app:layout_constraintVertical_bias="0.553" />
+        app:layout_constraintHorizontal_bias="0.057"
+        app:layout_constraintVertical_bias="0.563"
+        app:layout_constraintRight_toRightOf="parent" />
     <View
         android:layout_width="1dp"
         android:layout_height="155dp"
@@ -75,9 +75,9 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintVertical_bias="0.553" />
-
+    -->
     <!--These are the lines that create the box around the upload button-->
-
+<!--
     <View
         android:layout_width="349dp"
         android:layout_height="1dp"
@@ -130,7 +130,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
         app:layout_constraintVertical_bias="1.0" />
-
+    -->
 
     <!--The following make the push button icons-->
 
@@ -139,15 +139,15 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@drawable/camicon"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="45dp"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="252dp"
         app:layout_constraintVertical_bias="0.549"
-        app:layout_constraintBottom_toBottomOf="@+id/view11" />
+        app:layout_constraintBottom_toTopOf="@+id/import_pic_button" />
 
     <Button
         android:id="@+id/import_pic_button"
