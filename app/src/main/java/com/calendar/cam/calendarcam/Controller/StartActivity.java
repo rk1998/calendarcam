@@ -15,7 +15,6 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.calendar.cam.calendarcam.Model.CalendarInteraction;
@@ -123,6 +122,7 @@ public class StartActivity extends AppCompatActivity {
 
         Log.d("Month: " , ""+calendarEvent.getStartMonth() );
         Log.d("Day:", "" + calendarEvent.getStartDay());
+
 
     }
 
