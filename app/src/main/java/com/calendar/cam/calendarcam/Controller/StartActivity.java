@@ -14,7 +14,6 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -103,8 +102,6 @@ public class StartActivity extends AppCompatActivity {
     }
 
     private void getTextFromImage(Bitmap image) {
-        ImageView imageV = (ImageView) findViewById(R.id.image0);
-        imageV.setImageBitmap(image);
         Context context = getApplicationContext();
         TextRecognizer textRecognizer = new TextRecognizer.Builder(context).build();
 
