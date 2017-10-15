@@ -20,7 +20,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="205dp"
-        android:background="@drawable/camicon"/>
+        android:background="@drawable/camicon2"/>
 
     <Button
         android:id="@+id/import_pic_button"
@@ -33,7 +33,7 @@
         app:layout_constraintLeft_toRightOf="@+id/take_pic_button"
         android:layout_marginLeft="8dp"
         app:layout_constraintHorizontal_bias="0.805"
-        android:background="@drawable/uploadicon" />
+        android:background="@drawable/uploadicon3" />
 
     <TextView
         android:id="@+id/title_text"
