@@ -161,7 +161,9 @@ public class Model {
                         }
                         break;
                     } else {
-                        if (Character.isDigit(textArray[result -1].charAt(0))) {
+                        if (result == 0) {
+                            day = Integer.parseInt(textArray[result + 1]);
+                        } else if (Character.isDigit(textArray[result -1].charAt(0))) {
                             day = Integer.parseInt(textArray[result - 1]);
                         } else {
                             day = Integer.parseInt(textArray[result + 1]);
