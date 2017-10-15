@@ -15,7 +15,6 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.calendar.cam.calendarcam.Model.CalendarInteraction;
@@ -120,16 +119,6 @@ public class StartActivity extends AppCompatActivity {
                 .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, calendarEvent.getEndTime().getTimeInMillis())
                 .putExtra(CalendarContract.Events.TITLE, calendarEvent.getEventName());
         startActivity(calendarIntent);
-
-
-        TextView text2 = (TextView) findViewById(R.id.text2);
-        for (int i = 0; i < items.size(); ++i) {
-            TextBlock item = items.valueAt(i);
-            if (item != null && item.getValue() != null) {
-                Log.i("OcrDetectorProcessor", "Text detected! " + item.getValue());
-            }
-            text2.append(item.getValue());
-        }
     }
 
 }
