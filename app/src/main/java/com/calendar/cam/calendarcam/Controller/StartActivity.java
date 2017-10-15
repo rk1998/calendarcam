@@ -111,6 +111,7 @@ public class StartActivity extends AppCompatActivity {
         SparseArray<TextBlock> items = textRecognizer.detect(frame);
 
         Model model = Model.get_instance();
+
         try {
             CalendarInteraction calendarEvent = model.process_text_boxes(items);
 
@@ -123,6 +124,7 @@ public class StartActivity extends AppCompatActivity {
         } catch (IllegalArgumentException iae) {
             Toast.makeText(this, iae.getMessage(), Toast.LENGTH_LONG).show();
         }
+
     }
 
 }
