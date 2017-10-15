@@ -74,6 +74,8 @@ public class Model {
         String time = "";
         int month = 0;
         int day = 0;
+        String startTime = "7PM";
+        String endTime = "7PM";
         List<TextBlock> camTextList = new LinkedList<>();
         int maxArea = Integer.MIN_VALUE;
         int index = 0;
@@ -90,7 +92,55 @@ public class Model {
             TextBlock text = camTextArray.valueAt(i);
             String textValue = text.getValue();
             Month[] months = Month.values();
-            String[] textArray = textValue.toLowerCase().split("\\s+");
+            String[] textArray = textValue.toLowerCase().split("\\s+|-");
+            // Find Time
+
+            int firstAMIdx = stringContainsSearch("am", textArray, 0);
+            int firstPMIdx = stringContainsSearch("pm", textArray, 0);
+            Log.d("FirstAMIdx:", ""+firstAMIdx);
+            Log.d("FirstPMIdx:", ""+firstPMIdx);
+            if (firstAMIdx != -1 || firstPMIdx != -1) {
+                //Check if array entry contains number, if not, earlier does
+                if (firstAMIdx != -1) {
+                    //Looking at AM
+                    if (Character.isDigit(textArray[firstAMIdx].charAt(0))) {
+                        startTime = textArray[firstAMIdx];
+                    } else {
+                        startTime = textArray[firstAMIdx - 1] + textArray[firstAMIdx];
+                    }
+                } else {
+                    //Looking at PM
+                    if (Character.isDigit(textArray[firstPMIdx].charAt(0))) {
+                        startTime = textArray[firstPMIdx];
+                    } else {
+                        startTime = textArray[firstPMIdx - 1] + textArray[firstPMIdx];
+                    }
+
+                }
+            }
+            int secondAMIdx = stringContainsSearch("am", textArray, firstAMIdx + 1);
+            int secondPMIdx = stringContainsSearch("pm", textArray, firstPMIdx + 1);
+            if (secondAMIdx != -1 || secondPMIdx != -1) {
+                //Check if array entry contains number, if not, earlier does
+                if (secondAMIdx != -1) {
+                    //Looking at AM
+                    if (Character.isDigit(textArray[secondAMIdx].charAt(0))) {
+                        endTime = textArray[secondAMIdx];
+                    } else {
+                        endTime = textArray[secondAMIdx - 1] + textArray[secondAMIdx];
+                    }
+                } else {
+                    //Looking at PM
+                    if (Character.isDigit(textArray[secondPMIdx].charAt(0))) {
+                        endTime = textArray[secondPMIdx];
+                    } else {
+                        endTime = textArray[secondPMIdx - 1] + textArray[secondPMIdx];
+                    }
+
+                }
+            }
+
+
             for(Month m: months) {
 
                 int zeroresult = -1;
@@ -142,11 +192,12 @@ public class Model {
             }
 
         }
-        CalendarInteraction calendar = new CalendarInteraction(eventName, 2017, month, day, "5PM", "7PM");
-        Log.d("Day", "" + day);
+        CalendarInteraction calendar = new CalendarInteraction(eventName, 2017, month, day, startTime, endTime);
+/*        Log.d("Day", "" + day);
         Log.d("Month", ""+ month);
+        Log.d("startTime", startTime);
         Log.d("Month after", "" + calendar.getStartMonth());
-        Log.d("Year", "" + ""+calendar);
+        Log.d("Year", "" + ""+calendar);*/
         return calendar;
     }
 
@@ -154,11 +205,28 @@ public class Model {
      * stringSearch searches for a pattern in a block of text and returns the word index
      * @param pattern the pattern
      * @param textArray the block array
-     * @return an integer representing the index of the first pattern match
+     * @return an integer representing the index of the first pattern match, -1 if not found
      */
     private int stringSearch(String pattern, String[] textArray) {
         for (int i = 0; i < textArray.length; i++) {
             if (textArray[i].equals(pattern)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    /**
+     * stringContainsSearch searches for a subpattern in each "word" of a block of text, returning
+     * the index of the word
+     * @param subPattern the subpattern
+     * @param textArray the block array
+     * @param startingPoint the value in the block array to begin with.
+     * @return an integer representing the index of the first subpattern match, -1 if not found
+     */
+    private int stringContainsSearch(String subPattern, String[] textArray, int startingPoint) {
+        for (int i = startingPoint; i < textArray.length; i++) {
+            //Log.d("Pattern is ", textArray[i]);
+            if (textArray[i].contains(subPattern)) {
                 return i;
             }
         }
