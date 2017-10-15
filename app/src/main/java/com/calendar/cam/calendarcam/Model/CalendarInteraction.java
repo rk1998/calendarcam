@@ -29,7 +29,6 @@ public class CalendarInteraction {
     }
 
     /**
-     *
      * @param time 11:00AM
      * @return an integer representation 11
      */
@@ -64,7 +63,23 @@ public class CalendarInteraction {
         toRet[1] = Integer.parseInt(smin);
         return toRet;
     }
+    /**
+     * @return eventName
+     * */
+    public String getEventName() {
+        return this.eventName;
+    }
 
-
-
+    /**
+     * @return startTime
+     */
+    public Calendar getEventStartTime() {
+        return this.startTime;
+    }
+    /**
+     * @return endTime
+     */
+    public Calendar getEventEndTime() {
+        return this.endTime;
+    }
 }
