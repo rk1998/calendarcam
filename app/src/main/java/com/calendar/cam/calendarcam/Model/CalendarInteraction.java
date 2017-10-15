@@ -25,8 +25,8 @@ public class CalendarInteraction {
         int[] startTimeAr = processTime(eventStartTime);
         int[] endTimeAr = processTime(eventEndTime);
         this.eventName = eventName;
-        this.startTime.set(eventYear+1, eventMonth - 1, eventDay, startTimeAr[0], startTimeAr[1]);
-        this.endTime.set(eventYear+1, eventMonth - 1, eventDay, endTimeAr[0], endTimeAr[1]);
+        this.startTime.set(eventYear, eventMonth - 1, eventDay, startTimeAr[0], startTimeAr[1]);
+        this.endTime.set(eventYear, eventMonth - 1, eventDay, endTimeAr[0], endTimeAr[1]);
     }
 
     /**
