@@ -69,6 +69,8 @@ public class CalendarInteraction {
     public String getEventName() {
         return this.eventName;
     }
+    public Calendar getStartTime() { return this.startTime; }
+    public Calendar getEndTime() { return this.endTime; }
     public int getStartYear() { return this.startTime.get(Calendar.YEAR); }
     public int getStartMonth() { return this.startTime.get(Calendar.MONTH); }
     public int getStartDay() { return this.startTime.get(Calendar.DATE); }
