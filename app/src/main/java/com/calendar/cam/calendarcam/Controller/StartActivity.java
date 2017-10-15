@@ -121,6 +121,7 @@ public class StartActivity extends AppCompatActivity {
                     .putExtra(CalendarContract.Events.TITLE, calendarEvent.getEventName());
             startActivity(calendarIntent);
         } catch (IllegalArgumentException iae) {
+            System.out.println(iae.getMessage());
             Toast.makeText(this, iae.getMessage(), Toast.LENGTH_LONG).show();
         }
 
