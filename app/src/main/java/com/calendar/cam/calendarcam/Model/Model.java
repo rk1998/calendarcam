@@ -121,7 +121,7 @@ public class Model {
 
         
 
-        return new CalendarInteraction("Bingus", "Boingus", "Dingus");
+        return new CalendarInteraction(eventName, 2017, month, day, "5PM", "7PM");
 
     }
 
