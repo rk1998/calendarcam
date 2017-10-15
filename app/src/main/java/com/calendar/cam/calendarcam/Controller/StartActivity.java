@@ -3,6 +3,8 @@ package com.calendar.cam.calendarcam.Controller;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -13,6 +15,7 @@ import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.calendar.cam.calendarcam.R;
 import com.google.android.gms.vision.Frame;
@@ -20,6 +23,8 @@ import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class StartActivity extends AppCompatActivity {
     private Button mTakePicButton;
@@ -70,26 +75,47 @@ public class StartActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if ((requestCode == REQUEST_IMAGE_CAPTURE || requestCode == REQUEST_IMAGE_IMPORT) && resultCode == RESULT_OK) {
+        Bitmap photo;
+
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-            Bitmap photo = (Bitmap) extras.get("data");
-            Context context = getApplicationContext();
-            TextRecognizer textRecognizer = new TextRecognizer.Builder(context).build();
+            photo = (Bitmap) extras.get("data");
+            this.getTextFromImage(photo);
+        }
 
-            Frame frame = new Frame.Builder().setBitmap(photo).build();
-            SparseArray<TextBlock> items = textRecognizer.detect(frame);
+        if (requestCode == REQUEST_IMAGE_IMPORT && resultCode == RESULT_OK) {
+            Uri uri = data.getData();
 
-            TextView text2 = (TextView) findViewById(R.id.text2);
-            for (int i = 0; i < items.size(); ++i) {
-                TextBlock item = items.valueAt(i);
-                if (item != null && item.getValue() != null) {
-                    Log.i("OcrDetectorProcessor", "Text detected! " + item.getValue());
-                }
-                text2.append(item.getValue());
+
+            try {
+                InputStream stream = getContentResolver().openInputStream(uri);
+                photo = BitmapFactory.decodeStream(stream);
+                Matrix matrix = new Matrix();
+                matrix.postRotate(90);
+                photo =  Bitmap.createBitmap(photo, 0, 0, photo.getWidth(), photo.getHeight(), matrix, true);
+                this.getTextFromImage(photo);
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+                Toast.makeText(this, "Unable to open file", Toast.LENGTH_LONG).show();
             }
         }
     }
 
+    private void getTextFromImage(Bitmap image) {
+        Context context = getApplicationContext();
+        TextRecognizer textRecognizer = new TextRecognizer.Builder(context).build();
 
+        Frame frame = new Frame.Builder().setBitmap(image).build();
+        SparseArray<TextBlock> items = textRecognizer.detect(frame);
+
+        TextView text2 = (TextView) findViewById(R.id.text2);
+        for (int i = 0; i < items.size(); ++i) {
+            TextBlock item = items.valueAt(i);
+            if (item != null && item.getValue() != null) {
+                Log.i("OcrDetectorProcessor", "Text detected! " + item.getValue());
+            }
+            text2.append(item.getValue());
+        }
+    }
 
 }
