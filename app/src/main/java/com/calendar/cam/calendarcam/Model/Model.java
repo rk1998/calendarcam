@@ -90,12 +90,15 @@ public class Model {
             TextBlock text = camTextArray.valueAt(i);
             String textValue = text.getValue();
             Month[] months = Month.values();
+            String[] textArray = textValue.split("\\s+");
             for(Month m: months) {
-                List<Integer> result = rabinKarp(m.get_longForm(), textValue);
+                /*List<Integer> result = rabinKarp(m.get_longForm(), textValue);
                 Log.d("Textbox Value", textValue);
-                List<Integer> abbrvResult = rabinKarp(m.get_abbreviation(), textValue);
-                if(result.size() != 0) {
-                    month = m.get_monthNum();
+                List<Integer> abbrvResult = rabinKarp(m.get_abbreviation(), textValue);*/
+                int result = stringSearch(m.get_longForm(), textArray);
+                int abbrvResult = stringSearch(m.get_abbreviation(), textArray);
+                if(result != -1 || abbrvResult != -1) {
+                    /*month = m.get_monthNum();
                     String dayString = "";
                     int k = result.get(0) - 3;
                     int temp = result.get(0) - 1;
@@ -104,10 +107,18 @@ public class Model {
                         dayString += textValue.charAt(k);
                         k++;
                     }
-                    day = Integer.parseInt(dayString);
-
-                } else if(abbrvResult.size() != 0) {
+                    day = Integer.parseInt(dayString); */
                     month = m.get_monthNum();
+                    if (Character.isDigit(textArray[result -1].charAt(0))) {
+                        day = Integer.parseInt(textArray[result - 1]);
+                    } else {
+                        day = Integer.parseInt(textArray[result + 1]);
+                    }
+                    break;
+
+
+                } else if(abbrvResult != -1) {
+                    /*month = m.get_monthNum();
                     month = m.get_monthNum();
                     String dayString = "";
                     int k = abbrvResult.get(0) - 3;
@@ -117,7 +128,14 @@ public class Model {
                         dayString += textValue.charAt(k);
                         k++;
                     }
-                    day = Integer.parseInt(dayString);
+                    day = Integer.parseInt(dayString); */
+                    month = m.get_monthNum();
+                    if (Character.isDigit(textArray[abbrvResult - 1].charAt(0))) {
+                        day = Integer.parseInt(textArray[abbrvResult - 1]);
+                    } else {
+                        day = Integer.parseInt(textArray[abbrvResult + 1]);
+                    }
+                    break;
                 }
 
             }
@@ -131,6 +149,22 @@ public class Model {
     }
 
     /**
+     * stringSearch searches for a pattern in a block of text and returns the word index
+     * @param pattern the pattern
+     * @param textArray the block array
+     * @return an integer representing the index of the first pattern match
+     */
+    private int stringSearch(String pattern, String[] textArray) {
+        for (int i = 0; i < textArray.length; i++) {
+            if (textArray[i].equals(pattern)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
+    /**
      * Runs Rabin-Karp algorithm. Generate the pattern hash, and compare it with
      * the hash from a substring of text that's the same length as the pattern.
      * If the two hashes match, compare their individual characters, else update
@@ -142,7 +176,7 @@ public class Model {
      * @param text the body of text where you search for pattern
      * @return list containing the starting index for each match found
      */
-    private  List<Integer> rabinKarp(CharSequence pattern,
+    /*private  List<Integer> rabinKarp(CharSequence pattern,
                                           CharSequence text) {
 
         List<Integer> matches = new LinkedList<>();
@@ -212,5 +246,5 @@ public class Model {
 
     }
 
-
+*/
 }
