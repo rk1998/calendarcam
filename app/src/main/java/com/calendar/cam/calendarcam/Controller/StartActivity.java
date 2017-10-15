@@ -111,14 +111,18 @@ public class StartActivity extends AppCompatActivity {
         SparseArray<TextBlock> items = textRecognizer.detect(frame);
 
         Model model = Model.get_instance();
-        CalendarInteraction calendarEvent = model.process_text_boxes(items);
+        try {
+            CalendarInteraction calendarEvent = model.process_text_boxes(items);
 
-        Intent calendarIntent = new Intent(Intent.ACTION_INSERT)
-                .setData(CalendarContract.Events.CONTENT_URI)
-                .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, calendarEvent.getStartTime().getTimeInMillis() )
-                .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, calendarEvent.getEndTime().getTimeInMillis())
-                .putExtra(CalendarContract.Events.TITLE, calendarEvent.getEventName());
-        startActivity(calendarIntent);
+            Intent calendarIntent = new Intent(Intent.ACTION_INSERT)
+                    .setData(CalendarContract.Events.CONTENT_URI)
+                    .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, calendarEvent.getStartTime().getTimeInMillis() )
+                    .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, calendarEvent.getEndTime().getTimeInMillis())
+                    .putExtra(CalendarContract.Events.TITLE, calendarEvent.getEventName());
+            startActivity(calendarIntent);
+        } catch (IllegalArgumentException iae) {
+            Toast.makeText(this, iae.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 
 }

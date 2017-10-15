@@ -92,7 +92,7 @@ public class Model {
             Month[] months = Month.values();
             for(Month m: months) {
                 List<Integer> result = rabinKarp(m.get_longForm(), textValue);
-                Log.d("RKresult", ""+result.get(0));
+                Log.d("Textbox Value", textValue);
                 List<Integer> abbrvResult = rabinKarp(m.get_abbreviation(), textValue);
                 if(result.size() != 0) {
                     month = m.get_monthNum();
