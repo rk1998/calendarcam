@@ -78,7 +78,7 @@ public class Model {
             }
         }
 
-        return new CalendarInteraction("Bingus", "Boingus", "Dingus");
+        return new CalendarInteraction("Bingus", 5, 3, 2, "dick", "manboy");
 
     }
 
