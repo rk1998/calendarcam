@@ -5,35 +5,90 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.calendar.cam.calendarcam.Controller.StartActivity"
+    android:background="#f5f5dc"
     >
+    <!--possible background colors
+    peru(light brown): android:background="#cd853f"
+    wheat: android:background="#f5deb3"
+    khaki: android:background="#f0e68c"
+    light yellow: android:background="#fafad2"
+    -->
 
+    <!--These are the lines that make the box around the camera-->
+    <View
+        android:layout_width="345dp"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+        tools:layout_editor_absoluteY="380dp"
+        tools:layout_editor_absoluteX="20dp" />
+
+    <View
+        android:layout_width="345dp"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+        tools:layout_editor_absoluteY="230dp"
+        tools:layout_editor_absoluteX="20dp" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="150dp"
+        android:background="@android:color/black"
+        tools:layout_editor_absoluteY="230dp"
+        tools:layout_editor_absoluteX="20dp" />
+    <View
+        android:layout_width="1dp"
+        android:layout_height="150dp"
+        android:background="@android:color/black"
+        tools:layout_editor_absoluteY="230dp"
+        tools:layout_editor_absoluteX="365dp" />
+
+    <!--These are the lines that create the box around the upload button-->
+
+    <View
+        android:layout_width="345dp"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+        tools:layout_editor_absoluteY="408dp"
+        tools:layout_editor_absoluteX="20dp" />
+
+    <View
+        android:layout_width="345dp"
+        android:layout_height="1dp"
+        android:background="@android:color/black"
+        tools:layout_editor_absoluteY="558dp"
+        tools:layout_editor_absoluteX="20dp" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="150dp"
+        android:background="@android:color/black"
+        tools:layout_editor_absoluteY="408dp"
+        tools:layout_editor_absoluteX="20dp" />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="150dp"
+        android:background="@android:color/black"
+        tools:layout_editor_absoluteY="408dp"
+        tools:layout_editor_absoluteX="365dp" />
+
+    <!--The following make the push button icons-->
 
     <Button
         android:id="@+id/take_pic_button"
-        style="@android:style/Widget.DeviceDefault.Light.Button"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintHorizontal_bias="0.126"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="205dp"
-        android:background="@drawable/camicon"/>
+        android:background="@drawable/camicon"
+        tools:layout_editor_absoluteY="252dp"
+        tools:layout_editor_absoluteX="142dp" />
 
     <Button
         android:id="@+id/import_pic_button"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginRight="31dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="205dp"
-        app:layout_constraintLeft_toRightOf="@+id/take_pic_button"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintHorizontal_bias="0.805"
-        android:background="@drawable/uploadicon" />
+        android:background="@drawable/uploadicon"
+        tools:layout_editor_absoluteY="430dp"
+        tools:layout_editor_absoluteX="142dp" />
 
     <TextView
         android:id="@+id/title_text"
@@ -42,10 +97,12 @@
         android:text="CalendarCam"
         android:textSize="40sp"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="84dp"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
 </android.support.constraint.ConstraintLayout>
