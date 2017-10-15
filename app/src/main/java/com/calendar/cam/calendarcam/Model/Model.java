@@ -16,18 +16,18 @@ import java.util.List;
 
 public class Model {
     public enum Month {
-        JANUARY("Jan", "January", 1),
-        FEBRUARY("Feb", "February", 2),
-        MARCH("Mar", "March", 3),
-        APRIL("Apr", "April", 4),
-        MAY("May", "May", 5),
-        JUNE("Jun", "June", 6),
-        JULY("JUL", "July", 7),
-        AUGUST("Aug", "August", 8),
-        SEPTEMBER("Sept", "September", 9),
-        OCTOBER("Oct", "October", 10),
-        NOVEMBER("Nov", "November", 11),
-        DECEMBER("Dec", "December", 12);
+        JANUARY("jan", "january", 1),
+        FEBRUARY("feb", "february", 2),
+        MARCH("mar", "march", 3),
+        APRIL("apr", "april", 4),
+        MAY("may", "may", 5),
+        JUNE("jun", "june", 6),
+        JULY("jUL", "july", 7),
+        AUGUST("aug", "august", 8),
+        SEPTEMBER("sept", "september", 9),
+        OCTOBER("oct", "october", 10),
+        NOVEMBER("nov", "november", 11),
+        DECEMBER("dec", "december", 12);
 
 
         private final String _abbreviation;
@@ -90,62 +90,68 @@ public class Model {
             TextBlock text = camTextArray.valueAt(i);
             String textValue = text.getValue();
             Month[] months = Month.values();
-            String[] textArray = textValue.split("\\s+");
+            String[] textArray = textValue.toLowerCase().split("\\s+");
             for(Month m: months) {
-                /*List<Integer> result = rabinKarp(m.get_longForm(), textValue);
-                Log.d("Textbox Value", textValue);
-                List<Integer> abbrvResult = rabinKarp(m.get_abbreviation(), textValue);*/
+                int zeroresult = -1;
+                int zeroAbrvResult = -1;
+                if (m.get_longForm().equals("october")) {
+                    zeroresult = stringSearch("0ctober", textArray);
+                    zeroAbrvResult = stringSearch("0ct", textArray);
+                }
                 int result = stringSearch(m.get_longForm(), textArray);
                 int abbrvResult = stringSearch(m.get_abbreviation(), textArray);
-                if(result != -1 || abbrvResult != -1) {
-                    /*month = m.get_monthNum();
-                    String dayString = "";
-                    int k = result.get(0) - 3;
-                    int temp = result.get(0) - 1;
-                    String tempDay = "";
-                    while(k < temp) {
-                        dayString += textValue.charAt(k);
-                        k++;
-                    }
-                    day = Integer.parseInt(dayString); */
+                if(result != -1 || zeroresult != -1) {
+
                     month = m.get_monthNum();
-                    if (Character.isDigit(textArray[result -1].charAt(0))) {
-                        day = Integer.parseInt(textArray[result - 1]);
+                    if (zeroresult != -1) {
+                        if (Character.isDigit(textArray[zeroresult -1].charAt(0))) {
+                            day = Integer.parseInt(textArray[zeroresult - 1]);
+                        } else {
+                            day = Integer.parseInt(textArray[zeroresult + 1]);
+                        }
+                        break;
                     } else {
-                        day = Integer.parseInt(textArray[result + 1]);
+                        if (Character.isDigit(textArray[result -1].charAt(0))) {
+                            day = Integer.parseInt(textArray[result - 1]);
+                        } else {
+                            day = Integer.parseInt(textArray[result + 1]);
+                        }
+                        break;
                     }
-                    break;
 
 
-                } else if(abbrvResult != -1) {
-                    /*month = m.get_monthNum();
+
+                } else if(abbrvResult != -1 || zeroAbrvResult != -1) {
                     month = m.get_monthNum();
-                    String dayString = "";
-                    int k = abbrvResult.get(0) - 3;
-                    int temp = abbrvResult.get(0) - 1;
-                    String tempDay = "";
-                    while(k < temp) {
-                        dayString += textValue.charAt(k);
-                        k++;
-                    }
-                    day = Integer.parseInt(dayString); */
-                    month = m.get_monthNum();
-                    if (Character.isDigit(textArray[abbrvResult - 1].charAt(0))) {
-                        day = Integer.parseInt(textArray[abbrvResult - 1]);
+                    if (zeroAbrvResult != -1) {
+                        if (Character.isDigit(textArray[zeroAbrvResult - 1].charAt(0))) {
+                            day = Integer.parseInt(textArray[zeroAbrvResult - 1]);
+                        } else {
+                            day = Integer.parseInt(textArray[zeroAbrvResult + 1]);
+                        }
+                        break;
                     } else {
-                        day = Integer.parseInt(textArray[abbrvResult + 1]);
+                        if (Character.isDigit(textArray[abbrvResult - 1].charAt(0))) {
+                            day = Integer.parseInt(textArray[abbrvResult - 1]);
+                        } else {
+                            day = Integer.parseInt(textArray[abbrvResult + 1]);
+                        }
+                        break;
                     }
-                    break;
                 }
-
             }
 
         }
 
         
 
-        return new CalendarInteraction(eventName, 2017, month, day, "5PM", "7PM");
 
+        CalendarInteraction calendar = new CalendarInteraction(eventName, 2017, month, day, "5PM", "7PM");
+        Log.d("Day", "" + day);
+        Log.d("Month", ""+ month);
+        Log.d("Month after", "" + calendar.getStartMonth());
+        Log.d("Year", "" + ""+calendar);
+        return calendar;
     }
 
     /**
@@ -164,87 +170,5 @@ public class Model {
     }
 
 
-    /**
-     * Runs Rabin-Karp algorithm. Generate the pattern hash, and compare it with
-     * the hash from a substring of text that's the same length as the pattern.
-     * If the two hashes match, compare their individual characters, else update
-     * the text hash and continue.
-     *
-     * @throws IllegalArgumentException if the pattern is null or of length 0
-     * @throws IllegalArgumentException if text is null
-     * @param pattern a string you're searching for in a body of text
-     * @param text the body of text where you search for pattern
-     * @return list containing the starting index for each match found
-     */
-    /*private  List<Integer> rabinKarp(CharSequence pattern,
-                                          CharSequence text) {
 
-        List<Integer> matches = new LinkedList<>();
-        if (pattern == null || pattern.length() == 0) {
-            throw new IllegalArgumentException("Cannot use null pattern "
-                    + "or zero length pattern");
-        }
-        if (text == null) {
-            throw new IllegalArgumentException("Cannot use null text");
-        }
-        if (pattern.length() > text.length()) {
-            return  matches;
-        }
-
-        int textHash = generateHash(text, pattern.length());
-        int patternHash = generateHash(pattern, pattern.length());
-        int i = 0;
-        while (i <= text.length() - pattern.length()) {
-            if (patternHash == textHash) {
-                int j = 0;
-                while (j < pattern.length()
-                        && text.charAt(i + j) == pattern.charAt(j)) {
-                    j++;
-
-                }
-                if (j == pattern.length()) {
-                    matches.add(i);
-                }
-
-            }
-            i++;
-            if (i <= text.length() - pattern.length()) {
-                char oldChar = text.charAt(i - 1);
-                char newChar = text.charAt(i + pattern.length() - 1);
-                textHash = updateHash(textHash, pattern.length(),
-                        oldChar, newChar);
-            }
-        }
-        return matches;
-
-    }
-    private int generateHash(CharSequence current, int length) {
-        if (current == null) {
-            throw new IllegalArgumentException("Cannot generate hash "
-                    + "of null CharSequence");
-        }
-        if (length <= 0 || length > current.length()) {
-            throw new IllegalArgumentException("Cannot use negative length or "
-                    + "length that is greater than current.length()");
-        }
-        int hash = 0;
-        for (int i = 0; i < length; i++) {
-            hash += current.charAt(i) * Math.pow(BASE, length - 1 - i);
-        }
-        return hash;
-
-    }
-
-    private int updateHash(int oldHash, int length, char oldChar,
-                                 char newChar) {
-        if (length <= 0) {
-            throw new IllegalArgumentException("Cannot use a negative or "
-                    + "zero length");
-        }
-        return BASE * (oldHash - oldChar * (int) Math.pow(BASE, length - 1))
-                + newChar;
-
-    }
-
-*/
 }
