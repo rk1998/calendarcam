@@ -1,5 +1,6 @@
 package com.calendar.cam.calendarcam.Model;
 
+import android.util.Log;
 import android.util.SparseArray;
 
 import com.google.android.gms.vision.text.TextBlock;
@@ -65,6 +66,9 @@ public class Model {
 
     }
     public CalendarInteraction process_text_boxes(SparseArray<TextBlock> camTextArray) {
+        if(camTextArray.size() == 0) {
+            throw new IllegalArgumentException("No Text Detected");
+        }
         String eventName = "";
         String date = "";
         String time = "";
@@ -88,6 +92,7 @@ public class Model {
             Month[] months = Month.values();
             for(Month m: months) {
                 List<Integer> result = rabinKarp(m.get_longForm(), textValue);
+                Log.d("RKresult", ""+result.get(0));
                 List<Integer> abbrvResult = rabinKarp(m.get_abbreviation(), textValue);
                 if(result.size() != 0) {
                     month = m.get_monthNum();
