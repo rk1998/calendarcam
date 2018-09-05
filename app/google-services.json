@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "635639482103",
+    "firebase_url": "https://calendarcam-f787c.firebaseio.com",
+    "project_id": "calendarcam-f787c",
+    "storage_bucket": "calendarcam-f787c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:635639482103:android:80c86cec6ee926c3",
+        "android_client_info": {
+          "package_name": "com.calendar.cam.calendarcam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "635639482103-o7clsmrdklb8mgc6ni6q46b7qea3oejl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.calendar.cam.calendarcam",
+            "certificate_hash": "ab279f95f8185bfd6b76206fade3b1a5c175be9e"
+          }
+        },
+        {
+          "client_id": "635639482103-tb9rqv6aap4moh03kgebmm8vdeuodgd6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbSEMF8sxyJbgIZpxNwTCjQErXsWP1nAU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "635639482103-tb9rqv6aap4moh03kgebmm8vdeuodgd6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
